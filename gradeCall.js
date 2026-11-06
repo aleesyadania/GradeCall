@@ -1,4 +1,4 @@
-"use strict";
+
 const firstnumber = document.getElementById("input1");
 const secondnumber = document.getElementById("input2");
 const decondnumber = document.getElementById("input3");
@@ -12,3 +12,18 @@ function add() {
 }
 const addButton = document.getElementById("add");
 addButton.addEventListener('click', add);
+const myString = "Hello, World!";
+const name = document.getElementById("name");
+const className = document.getElementById("class");
+const btn = document.getElementById("btn");
+function displayInfo() {
+    if (output) {
+        output.innerHTML = `My name is ${name.value} and I am in class ${className.value}`;
+    }
+    ;
+}
+btn.addEventListener(`click`, displayInfo);
+const output = document.getElementById("output");
+if (output) {
+    output.innerHTML = `Welcome, ${myString}`;
+}
