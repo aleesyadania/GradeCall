@@ -1,19 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  </head>
-  <body>
-    <h2>Please Input Your Details</h2>
-    <form id="registerForm">
-      <label for="fullName">Full Name</label>
-      <input type="text" id="fullName" placeholder="Your full name">
-      <label for="studentGrade">Grade</label>
-      <input type="number" id="studentGrade" placeholder="Your Grade">
-      <p id="errorMsg" class="error"></p>
-      <button type="submit">Enter</button>
-    </form>
-  </body>
-  <script src="index.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator | School Level</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="container">
+        <h2>Grade Calculator</h2>
+        <p class="subtitle">Please input your details below</p>
+        
+        <form id="registerForm">
+            <div class="input-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="First name and last name" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label for="studentGrade">School Grade</label>
+                <select id="studentGrade" required>
+                    <option value="" disabled selected>Select your grade level</option>
+                    <option value="Grade 1 (SD)">Grade 1 (SD)</option>
+                    <option value="Grade 2 (SD)">Grade 2 (SD)</option>
+                    <option value="Grade 3 (SD)">Grade 3 (SD)</option>
+                    <option value="Grade 4 (SD)">Grade 4 (SD)</option>
+                    <option value="Grade 5 (SD)">Grade 5 (SD)</option>
+                    <option value="Grade 6 (SD)">Grade 6 (SD)</option>
+                    <option value="Grade 7 (SMP)">Grade 7 (SMP)</option>
+                    <option value="Grade 8 (SMP)">Grade 8 (SMP)</option>
+                    <option value="Grade 9 (SMP)">Grade 9 (SMP)</option>
+                    <option value="Grade 10 (SMA)">Grade 10 (SMA)</option>
+                    <option value="Grade 11 (SMA)">Grade 11 (SMA)</option>
+                    <option value="Grade 12 (SMA)">Grade 12 (SMA)</option>
+                </select>
+              </div>
+            <p id="errorMsg" class="error"></p>
+            <button type="submit">Save Details</button>
+        </form>
+    </div>
+    <script src="index.js"></script>
+</body>
 </html>
