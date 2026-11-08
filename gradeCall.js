@@ -2,7 +2,7 @@ const savedName = localStorage.getItem("userName");
 const savedGrade = localStorage.getItem("userGrade");
 if (savedName && savedGrade) {
   document.getElementById("greeting").textContent = `Welcome, ${savedName}!`;
-  document.getElementById("gradeBadge").textContent = `Class: ${savedGrade}`;
+  document.getElementById("gradeBadge").textContent = `${savedGrade}`;
 } else {
   window.location.href = "index.html";
 }
@@ -15,36 +15,40 @@ function getSelectedClass() {
   return classes[Number(selectClass.value)];
 }
 
+function getWeights() {
+  return {
+    assignment: Number(document.getElementById("assignmentWeight").value) || 0,
+    midTerm: Number(document.getElementById("midTermWeight").value) || 0,
+    finals: Number(document.getElementById("finalsWeight").value) || 0,
+  };
+}
+
 function saveWeight() {
-  const assignmentW = Number(document.getElementById("assignmentWeight").value);
-  const midTermW = Number(document.getElementById("midTermWeight").value);
-  const finalsW = Number(document.getElementById("finalsWeight").value);
+  const weights = getWeights();
   const errorWeight = document.getElementById("errorWeight");
 
   errorWeight.textContent = "";
 
-  if (assignmentW + midTermW + finalsW !== 100) {
+  if (weights.assignment + weights.midTerm + weights.finals !== 100) {
     errorWeight.textContent = "Please give the correct value (total must be 100%)";
     return;
+  } else {
+    errorWeight.textContent = "Saved";
   }
 
   const currentClass = getSelectedClass();
   if (currentClass) {
-    currentClass.weights = {
-      assignment: assignmentW,
-      midTerm: midTermW,
-      finals: finalsW,
-    };
+    currentClass.weights = weights;
   }
 }
 
-function tambahMapel() {
-  const namaInput = document.getElementById("namaMapel");
-  const targetInput = document.getElementById("targetMapel");
+function addClass() {
+  const nameInput = document.getElementById("nameClass");
+  const targetInput = document.getElementById("desiredScore");
   const selectClass = document.getElementById("selectClass");
   const errorClass = document.getElementById("errorClass");
 
-  const name = namaInput.value.trim();
+  const name = nameInput.value.trim();
   const target = Number(targetInput.value);
 
   errorClass.textContent = "";
@@ -61,11 +65,7 @@ function tambahMapel() {
   const newClass = {
     name: name,
     target: target,
-    weights: {
-      assignment: Number(document.getElementById("assignmentWeight").value) || 0,
-      midTerm: Number(document.getElementById("midTermWeight").value) || 0,
-      finals: Number(document.getElementById("finalsWeight").value) || 0,
-    },
+    weights: getWeights(),
     assignments: [],
     midTerm: "",
     finals: "",
@@ -79,7 +79,7 @@ function tambahMapel() {
   selectClass.appendChild(option);
   selectClass.value = option.value;
 
-  namaInput.value = "";
+  nameInput.value = "";
   targetInput.value = "";
 
   loadClassData();
@@ -131,20 +131,14 @@ function calculateGrade() {
     return;
   }
 
-  const assignmentW = Number(document.getElementById("assignmentWeight").value);
-  const midTermW = Number(document.getElementById("midTermWeight").value);
-  const finalsW = Number(document.getElementById("finalsWeight").value);
+  const weights = getWeights();
 
-  if (assignmentW + midTermW + finalsW !== 100) {
+  if (weights.assignment + weights.midTerm + weights.finals !== 100) {
     errorScore.textContent = "Please make sure the weights total 100% first.";
     return;
   }
 
-  currentClass.weights = {
-    assignment: assignmentW,
-    midTerm: midTermW,
-    finals: finalsW,
-  };
+  currentClass.weights = weights;
 
   const midTermInput = document.getElementById("midTerm").value;
   const finalsInput = document.getElementById("finals").value;
@@ -167,9 +161,9 @@ function calculateGrade() {
   const avgAssignment = sumAssignments / currentClass.assignments.length;
 
   const finalScore =
-    (avgAssignment * assignmentW) / 100 +
-    (midTermScore * midTermW) / 100 +
-    (finalsScore * finalsW) / 100;
+    (avgAssignment * weights.assignment) / 100 +
+    (midTermScore * weights.midTerm) / 100 +
+    (finalsScore * weights.finals) / 100;
 
   currentClass.finalScore = finalScore;
   displayResult(currentClass);
