@@ -16,7 +16,7 @@ if (registerForm) {
       errorMsg.textContent = "Please enter your grade.";
       return;
     }
-    localStorage.setItem("userName", fullName);
+    localStorage.setItem("userName", namePart[0]);
     localStorage.setItem("userGrade", studentGrade);
     window.location.href = "gradeCall.html";
   });

@@ -1,26 +1,58 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="gradeCall.css" />
-  </head>
-  <body>
-    <h1 id="greeting">Welcome!</h1>
-    <p id="gradeBadge"></p>
-    <a href="index.html">Log Out / Start Over</a>
-    <script>
-      const savedName = localStorage.getItem("userName");
-      const savedGrade = localStorage.getItem("userGrade");
-      if (savedName && savedGrade) {
-        document.getElementById("greeting").textContent =
-          `Welcome, ${savedName}!`;
-        document.getElementById("gradeBadge").textContent =
-          `Class: ${savedGrade}`;
-      } else {
-        window.location.href = "index.html";
-      }
-    </script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="gradeCall.css" />
+</head>
+
+<body>
+  <h1 id="greeting">Welcome!</h1>
+  <p id="gradeBadge"></p>
+  <a href="index.html">Log Out / Start Over</a>
+
+  <div>
+    <label>Assignment(%)</label>
+    <input type="number" id="assignmentWeight">
+    <label>Mid-Term(%)</label>
+    <input type="number" id="midTermWeight">
+    <label>Final-Test(%)</label>
+    <input type="number" id="finalsWeight">
+    <button type="button" onclick="saveWeight()">Save the weight</button>
+    <p id="errorWeight" class="error"></p>
+  </div>
+  <div>
+    <label>
+
+    </label>
+  </div>
+  <div>
+    <label>Add Class</label>
+    <input type="text" id="namaMapel" placeholder="Class Name">
+    <input type="number" id="targetMapel" placeholder="Desired Score">
+    <button type="button" onclick="tambahMapel()">+</button>
+    <select id="selectClass">
+      <option value="">See more</option>
+    </select>
+    <p id="errorClass" class="error"></p>
+  </div>
+  <div>
+    <input type="number" id="assignment" placeholder="assignment">
+    <button type="button" onclick="add()">+</button>
+    <ul id="assignmentList"></ul>
+    <br>
+    <input type="number" id="midTerm" placeholder="midTerm">
+    <br>
+    <input type="number" id="finals" placeholder="finals">
+    <br>
+    <button type="button" onclick="calculateGrade()">Calculate / Save Scores</button>
+    <p id="errorScore" class="error"></p>
+    <h2 id="finalResult"></h2>
+  </div>
+
+  <script src="gradeCall.js"></script>
+</body>
+
 </html>
