@@ -9,92 +9,47 @@
 </head>
 
 <body>
-  <div class="dashboard-container">
-    <header class="dashboard-header">
-      <div>
-        <h1 id="greeting">Welcome!</h1>
-        <p id="gradeBadge" class="badge"></p>
-      </div>
-      <a href="index.html" class="btn-logout">Log Out / Start Over</a>
-    </header>
+  <h1 id="greeting">Welcome!</h1>
+  <p id="gradeBadge"></p>
+  <a href="index.html">Log Out / Start Over</a>
 
-    <main class="dashboard-grid">
-      <!-- Card 1: Pengaturan Bobot Nilai -->
-      <section class="card">
-        <h2 class="card-title">Grade Weights</h2>
-        <p class="card-subtitle">Set the percentage for each component (Total must be 100%)</p>
-        
-        <div class="input-row">
-          <div class="input-group">
-            <label>Assignment (%)</label>
-            <input type="number" id="assignmentWeight" placeholder="0">
-          </div>
-          <div class="input-group">
-            <label>Mid-Term (%)</label>
-            <input type="number" id="midTermWeight" placeholder="0">
-          </div>
-          <div class="input-group">
-            <label>Final-Test (%)</label>
-            <input type="number" id="finalsWeight" placeholder="0">
-          </div>
-        </div>
-        <button type="button" class="btn-primary" onclick="saveWeight()">Save Weights</button>
-        <p id="errorWeight" class="error-msg"></p>
-      </section>
-      <section class="card">
-        <h2 class="card-title">Manage Classes</h2>
-        <p class="card-subtitle">Add a new class and set your target score</p>
-        
-        <div class="input-row">
-          <div class="input-group">
-            <input type="text" id="namaMapel" placeholder="Class Name (e.g., Math)">
-          </div>
-          <div class="input-group">
-            <input type="number" id="targetMapel" placeholder="Target Score">
-          </div>
-          <button type="button" class="btn-add" onclick="tambahMapel()">+</button>
-        </div>
-        
-        <div class="select-group">
-          <label>Select Active Class:</label>
-          <select id="selectClass">
-            <option value="">-- Choose a class --</option>
-          </select>
-        </div>
-        <p id="errorClass" class="error-msg"></p>
-      </section>
-      <section class="card span-2">
-        <h2 class="card-title">Score Calculator</h2>
-        <p class="card-subtitle">Input your assignments, mid-term, and finals score</p>
+  <div>
+    <label>Assignment(%)</label>
+    <input type="number" id="assignmentWeight">
+    <label>Mid-Term(%)</label>
+    <input type="number" id="midTermWeight">
+    <label>Final-Test(%)</label>
+    <input type="number" id="finalsWeight">
+    <button type="button" onclick="saveWeight()">Save the weight</button>
+    <p id="errorWeight" class="error"></p>
+  </div>
+  <div>
+    <label>
 
-        <div class="score-inputs">
-          <div class="input-group assignment-box">
-            <label>Assignments</label>
-            <div class="input-with-btn">
-              <input type="number" id="assignment" placeholder="Enter score">
-              <button type="button" class="btn-add-small" onclick="add()">+</button>
-            </div>
-            <ul id="assignmentList" class="assignment-list"></ul>
-          </div>
-
-          <div class="input-group">
-            <label>Mid-Term Score</label>
-            <input type="number" id="midTerm" placeholder="Enter score">
-          </div>
-
-          <div class="input-group">
-            <label>Finals Score</label>
-            <input type="number" id="finals" placeholder="Enter score">
-          </div>
-        </div>
-
-        <button type="button" class="btn-primary btn-large" onclick="calculateGrade()">Calculate / Save Scores</button>
-        
-        <p id="errorScore" class="error-msg"></p>
-
-        <div id="finalResult" class="result-box"></div>
-      </section>
-    </main>
+    </label>
+  </div>
+  <div>
+    <label>Add Class</label>
+    <input type="text" id="namaMapel" placeholder="Class Name">
+    <input type="number" id="targetMapel" placeholder="Desired Score">
+    <button type="button" onclick="tambahMapel()">+</button>
+    <select id="selectClass">
+      <option value="">See more</option>
+    </select>
+    <p id="errorClass" class="error"></p>
+  </div>
+  <div>
+    <input type="number" id="assignment" placeholder="assignment">
+    <button type="button" onclick="add()">+</button>
+    <ul id="assignmentList"></ul>
+    <br>
+    <input type="number" id="midTerm" placeholder="midTerm">
+    <br>
+    <input type="number" id="finals" placeholder="finals">
+    <br>
+    <button type="button" onclick="calculateGrade()">Calculate / Save Scores</button>
+    <p id="errorScore" class="error"></p>
+    <h2 id="finalResult"></h2>
   </div>
 
   <script src="gradeCall.js"></script>
