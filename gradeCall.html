@@ -16,17 +16,33 @@
         </div>
         <a href="index.html" class="btn-logout">Log Out</a>
       </header>
-<div id="tutor">
-  <h3>=== INSTRUCTION ===</h3>
-  <h4>Quick Start Guide
-1. Set Grade Weights: Define the percentage contribution for each component (must total 100%) and click Save Weights.
-2. Add Your Classes: Enter a class name and target score, then click "+" to add it.
-3. Select a Class: Choose your active class from the dropdown menu to manage its grades.
-4. Enter Scores: Input your midterm and finals scores, then add individual assignment scores using "+".
-	Tip: Check "Is already an Average Score" if you have a single composite assignment grade rather than individual task scores.
-5. Calculate: Click Calculate / Save Scores to view your projected outcome against your goal.</h4>
-</div>
-      <main class="dashboard-grid">
+      <div class="dashboard-body">
+        <aside id="tutor" class="sidebar-card">
+          <h3 class="card-title">Instructions</h3>
+          <p class="card-subtitle">Quick Start Guide</p>
+          <ol class="instruction-list">
+            <li>
+              <strong>Set Grade Weights:</strong> Define the percentage contribution for each component (must total 100%) and click Save Weights.
+            </li>
+            <li>
+              <strong>Add Your Classes:</strong> Enter a class name and target score, then click "+" to add it.
+            </li>
+            <li>
+              <strong>Select a Class:</strong> Choose your active class from the dropdown menu to manage its grades.
+            </li>
+            <li>
+              <strong>Enter Scores:</strong> Input your midterm and finals scores, then add individual assignment scores using "+".
+              <span class="instruction-tip">
+                <strong>Tip:</strong> Check "Is already an Average Score" if you have a single composite assignment grade rather than individual task scores.
+              </span>
+            </li>
+            <li>
+              <strong>Calculate:</strong> Click Calculate / Save Scores to view your projected outcome against your goal.
+            </li>
+          </ol>
+        </aside>
+
+        <main class="dashboard-grid">
         <section class="card">
           <h2 class="card-title">Grade Weights</h2>
           <p class="card-subtitle">
@@ -107,11 +123,11 @@
                 >
                   +
                 </button>
-              <div id="checkbox">
-                <label>Is already an Average Score</label>
+              </div>
+              <label id="checkbox" class="checkbox-row" for="avgAssign">
                 <input type="checkbox" id="avgAssign" />
-              </div>
-              </div>
+                <span>Is already an Average Score</span>
+              </label>
               <ul id="assignmentList" class="assignment-list"></ul>
             </div>
 
@@ -139,6 +155,7 @@
           <div id="finalResult" class="result-box"></div>
         </section>
       </main>
+      </div>
     </div>
 
     <script src="gradeCall.js"></script>
