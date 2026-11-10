@@ -2,32 +2,23 @@ const savedName = localStorage.getItem("userName");
 const savedGrade = localStorage.getItem("userGrade");
 if (savedName && savedGrade) {
   document.getElementById("greeting").textContent = `Welcome, ${savedName}!`;
-  document.getElementById("gradeBadge").textContent = `${savedGrade}`;
+  document.getElementById("gradeBadge").textContent = savedGrade;
 } else {
   window.location.href = "index.html";
 }
 
-document.getElementById("avgAssign").addEventListener("change", function () {
-  if (avgAssign.checked === true) {
-    addButton.style.display = "none";
-  } else {
-    addButton.style.display = "block";
-  }
-});
-
 let classes = [];
 
 function getSelectedClass() {
-  const selectClass = document.getElementById("selectClass");
-  if (selectClass.value === "") return null;
-  return classes[Number(selectClass.value)];
+  const index = document.getElementById("selectClass").value;
+  return index === "" ? null : classes[Number(index)];
 }
 
 function getWeights() {
   return {
-    assignment: Number(document.getElementById("assignmentWeight").value) || 0,
-    midTerm: Number(document.getElementById("midTermWeight").value) || 0,
-    finals: Number(document.getElementById("finalsWeight").value) || 0,
+    assignment: Number(document.getElementById("assignmentWeight").value),
+    midTerm: Number(document.getElementById("midTermWeight").value),
+    finals: Number(document.getElementById("finalsWeight").value),
   };
 }
 
@@ -35,20 +26,32 @@ function saveWeight() {
   const weights = getWeights();
   const errorWeight = document.getElementById("errorWeight");
 
-  errorWeight.textContent = "";
-
   if (weights.assignment + weights.midTerm + weights.finals !== 100) {
-    errorWeight.textContent = "Please give the correct value (total must be 100%)";
+    errorWeight.textContent =
+      "Please give the correct value (total must be 100%)";
     return;
-  } else {
-    errorWeight.textContent = "Saved";
   }
 
+  errorWeight.textContent = "Saved";
   const currentClass = getSelectedClass();
   if (currentClass) {
     currentClass.weights = weights;
   }
 }
+
+document.getElementById("avgAssign").addEventListener("change", function () {
+  const addButton = document.getElementById("addButton");
+  if (this.checked) {
+    addButton.style.display = "none";
+    document.getElementById("assignmentList").innerHTML = "";
+    const currentClass = getSelectedClass();
+    if (currentClass) {
+      currentClass.assignments = [];
+    }
+  } else {
+    addButton.style.display = "block";
+  }
+});
 
 function addClass() {
   const nameInput = document.getElementById("nameClass");
@@ -58,7 +61,6 @@ function addClass() {
 
   const name = nameInput.value.trim();
   const target = Number(targetInput.value);
-
   errorClass.textContent = "";
 
   if (!name) {
@@ -70,7 +72,7 @@ function addClass() {
     return;
   }
 
-  const newClass = {
+  classes.push({
     name: name,
     target: target,
     weights: getWeights(),
@@ -78,8 +80,7 @@ function addClass() {
     midTerm: "",
     finals: "",
     finalScore: null,
-  };
-  classes.push(newClass);
+  });
 
   const option = document.createElement("option");
   option.value = classes.length - 1;
@@ -89,7 +90,6 @@ function addClass() {
 
   nameInput.value = "";
   targetInput.value = "";
-
   loadClassData();
 }
 
@@ -118,7 +118,8 @@ function add() {
 
   const score = Number(assignmentInput.value);
   if (assignmentInput.value === "" || score < 0 || score > 100) {
-    errorScore.textContent = "Please enter an assignment score between 0 and 100.";
+    errorScore.textContent =
+      "Please enter an assignment score between 0 and 100.";
     return;
   }
 
@@ -140,21 +141,35 @@ function calculateGrade() {
   }
 
   const weights = getWeights();
-
   if (weights.assignment + weights.midTerm + weights.finals !== 100) {
     errorScore.textContent = "Please make sure the weights total 100% first.";
     return;
   }
 
-  currentClass.weights = weights;
-
+  const isAverage = document.getElementById("avgAssign").checked;
+  const assignmentInput = document.getElementById("assignment").value;
   const midTermInput = document.getElementById("midTerm").value;
   const finalsInput = document.getElementById("finals").value;
 
-  if (!avgAssign.checked && currentClass.assignments.length === 0) {
-    errorScore.textContent = "Please add at least one assignment score.";
-    return;
+  let avgAssignment = 0;
+  if (isAverage) {
+    if (assignmentInput === "") {
+      errorScore.textContent = "Please enter your average assignment score.";
+      return;
+    }
+    avgAssignment = Number(assignmentInput);
+  } else {
+    if (currentClass.assignments.length === 0) {
+      errorScore.textContent = "Please add at least one assignment score.";
+      return;
+    }
+    let sum = 0;
+    for (const score of currentClass.assignments) {
+      sum += score;
+    }
+    avgAssignment = sum / currentClass.assignments.length;
   }
+
   if (midTermInput === "" || finalsInput === "") {
     errorScore.textContent = "Please enter both Mid-Term and Finals scores.";
     return;
@@ -162,18 +177,15 @@ function calculateGrade() {
 
   const midTermScore = Number(midTermInput);
   const finalsScore = Number(finalsInput);
+
+  currentClass.weights = weights;
   currentClass.midTerm = midTermScore;
   currentClass.finals = finalsScore;
-
-  const sumAssignments = currentClass.assignments.reduce((a, b) => a + b, 0);
-  const avgAssignment = sumAssignments / currentClass.assignments.length;
-
-  const finalScore =
+  currentClass.finalScore =
     (avgAssignment * weights.assignment) / 100 +
     (midTermScore * weights.midTerm) / 100 +
     (finalsScore * weights.finals) / 100;
 
-  currentClass.finalScore = finalScore;
   displayResult(currentClass);
 }
 
@@ -185,41 +197,38 @@ function displayResult(currentClass) {
   }
 
   const rounded = currentClass.finalScore.toFixed(2);
-  if (currentClass.finalScore >= currentClass.target) {
-    finalResult.textContent = `${currentClass.name} Final Score: ${rounded} / ${currentClass.target} — Target Reached! (Pass)`;
-  } else {
-    finalResult.textContent = `${currentClass.name} Final Score: ${rounded} / ${currentClass.target} — Needs Improvement`;
-  }
+  const status =
+    currentClass.finalScore >= currentClass.target ? "Target Reached! (Pass)": "Needs Improvement";
+
+  finalResult.textContent = `${currentClass.name} Final Score: ${rounded} / ${currentClass.target} — ${status}`;
 }
 
 function loadClassData() {
   const currentClass = getSelectedClass();
-  const assignmentInput = document.getElementById("assignment");
-  const midTermInput = document.getElementById("midTerm");
-  const finalsInput = document.getElementById("finals");
-  const errorScore = document.getElementById("errorScore");
-
-  errorScore.textContent = "";
-  assignmentInput.value = "";
+  document.getElementById("errorScore").textContent = "";
+  document.getElementById("assignment").value = "";
 
   if (!currentClass) {
     document.getElementById("assignmentList").innerHTML = "";
-    midTermInput.value = "";
-    finalsInput.value = "";
+    document.getElementById("midTerm").value = "";
+    document.getElementById("finals").value = "";
     document.getElementById("finalResult").textContent = "";
     return;
   }
 
-  if (currentClass.weights.assignment + currentClass.weights.midTerm + currentClass.weights.finals === 100) {
-    document.getElementById("assignmentWeight").value = currentClass.weights.assignment;
-    document.getElementById("midTermWeight").value = currentClass.weights.midTerm;
-    document.getElementById("finalsWeight").value = currentClass.weights.finals;
+  const w = currentClass.weights;
+  if (w.assignment + w.midTerm + w.finals === 100) {
+    document.getElementById("assignmentWeight").value = w.assignment;
+    document.getElementById("midTermWeight").value = w.midTerm;
+    document.getElementById("finalsWeight").value = w.finals;
   }
 
-  midTermInput.value = currentClass.midTerm;
-  finalsInput.value = currentClass.finals;
+  document.getElementById("midTerm").value = currentClass.midTerm;
+  document.getElementById("finals").value = currentClass.finals;
   renderAssignments(currentClass);
   displayResult(currentClass);
 }
 
-document.getElementById("selectClass").addEventListener("change", loadClassData);
+document
+  .getElementById("selectClass")
+  .addEventListener("change", loadClassData);

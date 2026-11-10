@@ -1,14 +1,10 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FINAL ASSIGNMENT</title>
-  <link rel="stylesheet" href="gradeCall.css" />
-</head>
-
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FINAL ASSIGNMENT</title>
+  </head>
 
   <body>
     <div class="dashboard-container">
@@ -17,29 +13,33 @@
           <h1 id="greeting">Welcome!</h1>
           <p id="gradeBadge" class="badge"></p>
         </div>
-        <a href="index.html" class="btn-logout">Log Out / Start Over</a>
+        <a href="index.html" class="btn-logout">Log Out</a>
       </header>
 
       <main class="dashboard-grid">
         <section class="card">
           <h2 class="card-title">Grade Weights</h2>
-          <p class="card-subtitle">Set the percentage for each component (Total must be 100%)</p>
+          <p class="card-subtitle">
+            Set the percentage for each component (Total must be 100%)
+          </p>
 
           <div class="input-row">
             <div class="input-group">
               <label>Assignment (%)</label>
-              <input type="number" id="assignmentWeight" placeholder="0">
+              <input type="number" id="assignmentWeight" placeholder="0" />
             </div>
             <div class="input-group">
               <label>Mid-Term (%)</label>
-              <input type="number" id="midTermWeight" placeholder="0">
+              <input type="number" id="midTermWeight" placeholder="0" />
             </div>
             <div class="input-group">
               <label>Final-Test (%)</label>
-              <input type="number" id="finalsWeight" placeholder="0">
+              <input type="number" id="finalsWeight" placeholder="0" />
             </div>
           </div>
-          <button type="button" class="btn-primary" onclick="saveWeight()">Save Weights</button>
+          <button type="button" class="btn-primary" onclick="saveWeight()">
+            Save Weights
+          </button>
           <p id="errorWeight" class="error-msg"></p>
         </section>
         <section class="card">
@@ -48,12 +48,22 @@
 
           <div class="input-row">
             <div class="input-group">
-              <input type="text" id="nameClass" placeholder="Class Name (e.g., Math)">
+              <input
+                type="text"
+                id="nameClass"
+                placeholder="Class Name (e.g., Math)"
+              />
             </div>
             <div class="input-group">
-              <input type="number" id="desiredScore" placeholder="Target Score">
+              <input
+                type="number"
+                id="desiredScore"
+                placeholder="Target Score"
+              />
             </div>
-            <button type="button" class="btn-add" onclick="addClass()">+</button>
+            <button type="button" class="btn-add" onclick="addClass()">
+              +
+            </button>
           </div>
 
           <div class="select-group">
@@ -66,32 +76,51 @@
         </section>
         <section class="card span-2">
           <h2 class="card-title">Score Calculator</h2>
-          <p class="card-subtitle">Input your assignments, mid-term, and finals score</p>
+          <p class="card-subtitle">
+            Input your assignments, mid-term, and finals score
+          </p>
 
           <div class="score-inputs">
             <div class="input-group assignment-box">
               <label>Assignments</label>
               <div class="input-with-btn">
-                <input type="number" id="assignment" placeholder="Enter score">
-                <button type="button" id="addButton" class="btn-add-small" onclick="add()">+</button>
-                <input type="checkbox" id="avgAssign">
+                <input
+                  type="number"
+                  id="assignment"
+                  placeholder="Enter score"
+                />
+                <button
+                  type="button"
+                  id="addButton"
+                  class="btn-add-small"
+                  onclick="add()"
+                >
+                  +
+                </button>
+                <label>Is already an Average Score</label>
+                <input type="checkbox" id="avgAssign" />
               </div>
               <ul id="assignmentList" class="assignment-list"></ul>
             </div>
 
             <div class="input-group">
               <label>Mid-Term Score</label>
-              <input type="number" id="midTerm" placeholder="Enter score">
+              <input type="number" id="midTerm" placeholder="Enter score" />
             </div>
 
             <div class="input-group">
               <label>Finals Score</label>
-              <input type="number" id="finals" placeholder="Enter score">
+              <input type="number" id="finals" placeholder="Enter score" />
             </div>
           </div>
 
-          <button type="button" class="btn-primary btn-large" onclick="calculateGrade()">Calculate / Save
-            Scores</button>
+          <button
+            type="button"
+            class="btn-primary btn-large"
+            onclick="calculateGrade()"
+          >
+            Calculate / Save Scores
+          </button>
 
           <p id="errorScore" class="error-msg"></p>
 
@@ -102,6 +131,4 @@
 
     <script src="gradeCall.js"></script>
   </body>
-</body>
-
 </html>
