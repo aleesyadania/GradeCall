@@ -48,12 +48,12 @@
 
           <div class="input-row">
             <div class="input-group">
-              <input type="text" id="namaMapel" placeholder="Class Name (e.g., Math)">
+              <input type="text" id="nameClass" placeholder="Class Name (e.g., Math)">
             </div>
             <div class="input-group">
-              <input type="number" id="targetMapel" placeholder="Target Score">
+              <input type="number" id="desiredScore" placeholder="Target Score">
             </div>
-            <button type="button" class="btn-add" onclick="tambahMapel()">+</button>
+            <button type="button" class="btn-add" onclick="addClass()">+</button>
           </div>
 
           <div class="select-group">
@@ -73,7 +73,8 @@
               <label>Assignments</label>
               <div class="input-with-btn">
                 <input type="number" id="assignment" placeholder="Enter score">
-                <button type="button" class="btn-add-small" onclick="add()">+</button>
+                <button type="button" id="addButton" class="btn-add-small" onclick="add()">+</button>
+                <input type="checkbox" id="avgAssign">
               </div>
               <ul id="assignmentList" class="assignment-list"></ul>
             </div>

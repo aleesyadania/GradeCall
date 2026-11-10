@@ -7,6 +7,14 @@ if (savedName && savedGrade) {
   window.location.href = "index.html";
 }
 
+document.getElementById("avgAssign").addEventListener("change", function () {
+  if (avgAssign.checked === true) {
+    addButton.style.display = "none";
+  } else {
+    addButton.style.display = "block";
+  }
+});
+
 let classes = [];
 
 function getSelectedClass() {
@@ -143,7 +151,7 @@ function calculateGrade() {
   const midTermInput = document.getElementById("midTerm").value;
   const finalsInput = document.getElementById("finals").value;
 
-  if (currentClass.assignments.length === 0) {
+  if (!avgAssign.checked && currentClass.assignments.length === 0) {
     errorScore.textContent = "Please add at least one assignment score.";
     return;
   }
