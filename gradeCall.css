@@ -1,30 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap');
-
-:root {
-  --bg-dark: #0a0f0d; 
-  --card-bg: rgba(20, 30, 25, 0.85); 
-  --gold: #d4af37; 
-  --gold-hover: #f1c40f;
-  --text-main: #e0e0e0;
-  --text-muted: #8a9c93;
-  --border-color: rgba(212, 175, 55, 0.2);
-  --input-bg: rgba(0, 0, 0, 0.3);
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  --bg-main: #f3f4f6;
+  --bg-card: #ffffff;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --accent: #374151;
+  --accent-hover: #111827;
+  --input-bg: #ffffff;
+  --error: #ef4444;
+}
+
 body {
-  background-color: var(--bg-dark);
-  background-image: 
-    linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-color: var(--bg-main);
   color: var(--text-main);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -35,7 +30,6 @@ body {
 .dashboard-container {
   width: 100%;
   max-width: 1000px;
-  animation: fadeIn 0.8s ease-out;
 }
 
 .dashboard-header {
@@ -48,71 +42,66 @@ body {
 }
 
 #greeting {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
 }
 
 .badge {
   display: inline-block;
   margin-top: 8px;
   padding: 4px 12px;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--accent);
+  color: var(--accent);
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
+  background: transparent;
 }
 
 .btn-logout {
   color: var(--text-muted);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.3s;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .btn-logout:hover {
-  color: var(--gold);
+  color: var(--accent-hover);
 }
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 
-.span-2 {
-  grid-column: span 2;
-}
-
 .card {
-  background: var(--card-bg);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 30px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.card:hover {
-  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .card-title {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.4rem;
-  color: var(--gold);
+  color: var(--text-main);
   margin-bottom: 5px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .card-subtitle {
   font-size: 0.9rem;
   color: var(--text-muted);
   margin-bottom: 25px;
+  font-weight: 300;
 }
 
 .input-row {
@@ -128,43 +117,43 @@ body {
 }
 
 .input-group label {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
   margin-bottom: 8px;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
-input[type="number"],
-input[type="text"],
-select {
+select,
+input {
   width: 100%;
   padding: 12px 15px;
   background: var(--input-bg);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #fff;
-  font-family: 'Space Mono', monospace;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-main);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s ease;
 }
 
-input:focus, select:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+select:focus,
+input:focus {
+  border-color: var(--accent);
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: #9ca3af;
 }
 
 select {
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: right 15px center;
-  background-size: 15px;
+  background-size: 12px;
   cursor: pointer;
 }
 
@@ -174,31 +163,34 @@ select {
 
 .select-group label {
   display: block;
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
   margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
 .btn-primary {
   width: 100%;
   padding: 14px;
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  font-family: 'Outfit', sans-serif;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-size: 1rem;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: var(--gold);
-  color: var(--bg-dark);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-large {
@@ -211,34 +203,34 @@ select {
   width: 50px;
   height: 48px;
   margin-top: 24px;
-  background: var(--gold);
+  background: var(--accent);
   border: none;
-  border-radius: 8px;
-  color: var(--bg-dark);
+  border-radius: 4px;
+  color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
 }
 
 .btn-add:hover {
-  background: var(--gold-hover);
+  background: var(--accent-hover);
 }
 
 .btn-add-small {
-  background: var(--gold);
+  background: var(--accent);
   border: none;
-  border-radius: 8px;
-  color: var(--bg-dark);
+  border-radius: 4px;
+  color: #ffffff;
   font-size: 1.2rem;
   padding: 0 20px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
 }
 
 .btn-add-small:hover {
-  background: var(--gold-hover);
+  background: var(--accent-hover);
 }
 
 .score-inputs {
@@ -261,18 +253,19 @@ select {
 }
 
 .assignment-list li {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-main);
   padding: 6px 10px;
   border-radius: 4px;
   margin-bottom: 5px;
-  font-family: 'Space Mono', monospace;
   font-size: 0.85rem;
   display: flex;
   justify-content: space-between;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
 }
 
 .error-msg {
-  color: #ff6b6b;
+  color: var(--error);
   font-size: 0.85rem;
   margin-top: 10px;
   min-height: 20px;
@@ -282,51 +275,17 @@ select {
 .result-box {
   margin-top: 20px;
   padding: 20px;
-  border-radius: 8px;
-  background: rgba(212, 175, 55, 0.1);
-  border-left: 4px solid var(--gold);
-  font-family: 'Space Mono', monospace;
+  border-radius: 4px;
+  background: #f9fafb;
+  border-left: 4px solid var(--accent);
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.1rem;
-  color: var(--gold);
+  color: var(--text-main);
   text-align: center;
   display: none;
 }
 
 .result-box:not(:empty) {
   display: block;
-  animation: slideUp 0.4s ease-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-  .span-2 {
-    grid-column: span 1;
-  }
-  .score-inputs {
-    grid-template-columns: 1fr;
-  }
-  .dashboard-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-  .input-row {
-    flex-direction: column;
-  }
-  .btn-add {
-    width: 100%;
-    margin-top: 0;
-  }
-}
