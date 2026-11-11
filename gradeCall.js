@@ -30,6 +30,10 @@ function saveWeight() {
     errorWeight.textContent =
       "Please give the correct value (total must be 100%)";
     return;
+  }else if(weights.assignment === 0 || weights.finals === 0 || weights.midTerm === 0){
+    errorWeight.textContent =
+      "Please dont have one or two of the weight to be 0";
+      return;
   }
 
   errorWeight.textContent = "Saved";
